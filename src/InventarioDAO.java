@@ -36,4 +36,26 @@ public class InventarioDAO {
             System.out.println("Error: " + e.getMessage());
         }
     }
+    public void listarArticulos() {
+    String sql = "SELECT * FROM articulos";
+
+    try (Connection conn = ConexionBD.obtenerConexion();
+         Statement stmt = conn.createStatement();
+         ResultSet rs = stmt.executeQuery(sql)) {
+
+        while (rs.next()) {
+            int id = rs.getInt("id_articulo");
+            String nombre = rs.getString("nombre");
+            String descripcion = rs.getString("descripcion");
+            double precio = rs.getDouble("precio");
+            int cantidad = rs.getInt("cantidad");
+
+            System.out.println("ID: " + id + ", Nombre: " + nombre + ", Precio: $" + precio + ", Cantidad: " + cantidad);
+        }
+
+    } catch (Exception e) {
+        System.out.println("Error al leer artículos: " + e.getMessage());
+    }
 }
+}
+
